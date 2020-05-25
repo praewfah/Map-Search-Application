@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('twitter', 'TweetsController@index');
+Route::get('history', 'TweetsController@getHistories');

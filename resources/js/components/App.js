@@ -1,35 +1,50 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Footer from './Footer';
 
 class App extends Component {
     constructor() {
         super();
-        this.state = {data: [], coor: [], beaches: []};
+        this.state = {data: [], coor: [], beaches: [], most_recent: [], map_loading: false, city_name: "Bangkok"};
         
         this.infowindow = null;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleReload = this.handleReload.bind(this);
     }
 
     componentDidMount() {
-        var sc = document.createElement("script");
+        const sc = document.createElement("script");
         sc.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyDjoHelMpE5RdVWUPQyDNknQpyxRQGBQpg&v=3.exp");
         sc.setAttribute("type", "text/javascript");
         document.head.appendChild(sc);
-
-        axios.get('/api/twitter').then(response => {
-            this.setState({
-                data: response.data.data,
-                coor: response.data.coor,
-                beaches: response.data.beaches
-            });
-            google.maps.event.addDomListener(window, 'load', this.initialize());
-        });
+        
+        this.fetchTweets(this.state.city_name);
+        this.handleOnClick();
     }
 
+    fetchTweets(city_name) {
+        this.setState({ map_loading: true }, () => {
+                axios.get('/api/twitter',{
+                    params: {
+                      city: city_name
+                    }
+                }
+                ).then(response => {
+                this.setState({
+                    data: response.data.data,
+                    coor: response.data.coor,
+                    beaches: response.data.beaches,
+                    map_loading: false
+                });
+                
+                $('#banner').html("<h1>Tweets about "+city_name+"</h1>");
+                google.maps.event.addDomListener(window, 'load', this.initialize());
+            });
+        });
+    }
+    
     initialize() {
         const mapOptions = {
             zoom: 13,
@@ -37,14 +52,13 @@ class App extends Component {
         };
         
         $('#map-canvas').css({ width: $(window).width(), height: $(window).height() * .8 });
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        
+        const map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
         this.setMarkers(map, this.state.beaches);
     }
 
     setMarkers(map, locations) {
         const data = this.state.data;
-
         const image = [];
         const tweet = []; 
         const tweet_date = [];
@@ -66,10 +80,10 @@ class App extends Component {
         };
 
         for (var i = 0; i < locations.length; i++) {
-            var beach = locations[i];
-            var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
+            const beach = locations[i];
+            const myLatLng = new google.maps.LatLng(beach[1], beach[2]);
 
-            var marker = new google.maps.Marker({
+            const marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
                 icon: image[i],
@@ -83,7 +97,8 @@ class App extends Component {
     }
     
     markerEventListener(map, marker, tweet, tweet_date) {
-        var contenido = "Tweet: "+tweet+"<br/>When: "+tweet_date;
+        const contenido = "Tweet: "+tweet+"<br/>When: "+tweet_date;
+        
         google.maps.event.addListener(marker, 'click', function(evt) {
             if(this.infowindow){
                 this.infowindow.close();
@@ -97,32 +112,54 @@ class App extends Component {
     }
     
     handleChange(event) {
-        //this.setState({value: event.target.value});
+        this.setState({city_name: event.target.value});
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ');
+        this.fetchTweets(this.state.city_name);
+        event.preventDefault();
+    }
+
+    handleReload(event) {
+        this.fetchTweets(event.target.value);
         event.preventDefault();
     }
     
+    handleOnClick() {
+        this.setState({ loading: true, most_recent: [] }, () => {
+            axios.get('/api/history')
+                .then(response => this.setState({
+                        loading: false,
+                        most_recent: response.data
+                }));
+        });
+    }
+    
     render() {
+        const { most_recent, map_loading, loading } = this.state;
+    
         return (
             <div className='container'>
                 <div className='row justify-content-center'>
                     <div className='col-sm-9'>
                         <div className='row'>
-                            <div id="banner"></div>
-
-                            <div id="map-canvas"></div>
-
+                            <div id="banner" className='col-sm-12 text-center'></div>
+                            <div id="map-canvas">{map_loading ? <i className="fa fa-spinner fa-spin fa-4x"></i> : ''}</div>
                             <div className='col-sm-12' style={{ padding: '10px', background: '#f8f8f8' }}>
-                                <form onSubmit={this.handleSubmit}>
-                                    <input type="text" className="form-control col-sm-6" id="city" placeholder="City" />
-                                    <button type="submit" className="btn btn-primary col-sm-3">SEARCH</button>
-                                    <button type="button" className="btn btn-default col-sm-3">HISTORY</button>
-                                </form>
+                            <input type="text" className="form-control col-sm-6" placeholder="City" onChange={this.handleChange} />
+                            <button type="submit" className="btn btn-primary col-sm-3" onClick={this.handleSubmit}>SEARCH</button>
+                            <button type="button" className="btn btn-default col-sm-3" onClick={this.handleOnClick}>HISTORY</button>
                             </div>
                         </div>
+                    </div>
+                    <div className='col-sm-2'>
+                        <h5>Most Recent</h5><hr/>
+                        {loading ? <i className="fa fa-spinner fa-spin fa-4x"></i> : ''}
+                        <ul className='list-group list-group-flush' id="history">
+                            {most_recent.map(project => (
+                                <button key={project.city} className="btn btn-default text-left" onClick={this.handleReload} value={project.city}>{project.city}</button>
+                            ))}
+                        </ul>
                     </div>
                 </div>
                 <Footer />
