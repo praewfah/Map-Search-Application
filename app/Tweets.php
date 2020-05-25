@@ -8,9 +8,13 @@ class Tweets extends Model
 {
     protected $fillable = [
         'city', 
+        'fetch', 
+        'image', 
+        'image_url', 
+        'name', 
+        'tweet', 
+        'latitud',
+        'longitud',
         'created_at', 
-        'latitude', 
-        'longitude',
-        'tweets_data'
     ];
 }

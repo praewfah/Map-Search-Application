@@ -139,7 +139,7 @@ return [
         'consumer_key' => env('TWITTER_CONSUMER_KEY', null),
         'consumer_secret' =>  env('TWITTER_CONSUMER_SECRET', null),
     ],
-    
+    'owm_appid' => env('OWM_APPID', null),
     'google_api_key' => env('GOOGLE_API_KEY', null),
     
     /*
