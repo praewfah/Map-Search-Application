@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
     
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/'css/app.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Script -->
@@ -27,6 +27,6 @@
 <body>
     <div id="app"></div>
     
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ URL::asset('/'js/app.js') }}"></script>
 </body>
 </html>
