@@ -13,10 +13,10 @@ $tmpResultFile  = __DIR__ . '/tmp_parser.php';
 $resultDir = __DIR__ . '/../lib/PhpParser/Parser';
 $tokensResultsFile = $resultDir . '/Tokens.php';
 
-// check for kmyacc.exe binary in this directory, otherwise fall back to global name
-$kmyacc = __DIR__ . '/kmyacc.exe';
-if (!file_exists($kmyacc)) {
-    $kmyacc = 'kmyacc';
+$kmyacc = getenv('KMYACC');
+if (!$kmyacc) {
+    // Use phpyacc from dev dependencies by default.
+    $kmyacc = PHP_BINARY . ' ' . __DIR__ . '/../vendor/bin/phpyacc';
 }
 
 $options = array_flip($argv);
@@ -59,8 +59,7 @@ foreach ($grammarFileToName as $grammarFile => $name) {
     $additionalArgs = $optionDebug ? '-t -v' : '';
 
     echo "Building $name parser.\n";
-    $output = trim(shell_exec("$kmyacc $additionalArgs -l -m $skeletonFile -p $name $tmpGrammarFile 2>&1"));
-    echo "Output: \"$output\"\n";
+    $output = execCmd("$kmyacc $additionalArgs -m $skeletonFile -p $name $tmpGrammarFile");
 
     $resultCode = file_get_contents($tmpResultFile);
     $resultCode = removeTrailingWhitespace($resultCode);
@@ -70,8 +69,7 @@ foreach ($grammarFileToName as $grammarFile => $name) {
     unlink($tmpResultFile);
 
     echo "Building token definition.\n";
-    $output = trim(shell_exec("$kmyacc -l -m $tokensTemplate $tmpGrammarFile 2>&1"));
-    assert($output === '');
+    $output = execCmd("$kmyacc -m $tokensTemplate $tmpGrammarFile");
     rename($tmpResultFile, $tokensResultsFile);
 
     if (!$optionKeepTmpGrammar) {
@@ -85,7 +83,7 @@ foreach ($grammarFileToName as $grammarFile => $name) {
 
 function resolveNodes($code) {
     return preg_replace_callback(
-        '~(?<name>[A-Z][a-zA-Z_\\\\]++)\s*' . PARAMS . '~',
+        '~\b(?<name>[A-Z][a-zA-Z_\\\\]++)\s*' . PARAMS . '~',
         function($matches) {
             // recurse
             $matches['params'] = resolveNodes($matches['params']);
@@ -124,6 +122,12 @@ function resolveMacros($code) {
                 return '$this->startAttributeStack[#1] + $this->endAttributes';
             }
 
+            if ('stackAttributes' == $name) {
+                assertArgs(1, $args, $name);
+                return '$this->startAttributeStack[' . $args[0] . ']'
+                     . ' + $this->endAttributeStack[' . $args[0] . ']';
+            }
+
             if ('init' == $name) {
                 return '$$ = array(' . implode(', ', $args) . ')';
             }
@@ -160,13 +164,39 @@ function resolveMacros($code) {
                      . ' $s->value = Node\Scalar\String_::parseEscapeSequences($s->value, ' . $args[1] . ', ' . $args[2] . '); } }';
             }
 
-            if ('parseEncapsedDoc' == $name) {
+            if ('makeNop' == $name) {
+                assertArgs(3, $args, $name);
+
+                return '$startAttributes = ' . $args[1] . ';'
+                . ' if (isset($startAttributes[\'comments\']))'
+                . ' { ' . $args[0] . ' = new Stmt\Nop($startAttributes + ' . $args[2] . '); }'
+                . ' else { ' . $args[0] . ' = null; }';
+            }
+
+            if ('makeZeroLengthNop' == $name) {
                 assertArgs(2, $args, $name);
 
-                return 'foreach (' . $args[0] . ' as $s) { if ($s instanceof Node\Scalar\EncapsedStringPart) {'
-                     . ' $s->value = Node\Scalar\String_::parseEscapeSequences($s->value, null, ' . $args[1] . '); } }'
-                     . ' $s->value = preg_replace(\'~(\r\n|\n|\r)\z~\', \'\', $s->value);'
-                     . ' if (\'\' === $s->value) array_pop(' . $args[0] . ');';
+                return '$startAttributes = ' . $args[1] . ';'
+                    . ' if (isset($startAttributes[\'comments\']))'
+                    . ' { ' . $args[0] . ' = new Stmt\Nop($this->createCommentNopAttributes($startAttributes[\'comments\'])); }'
+                    . ' else { ' . $args[0] . ' = null; }';
+            }
+
+            if ('strKind' == $name) {
+                assertArgs(1, $args, $name);
+
+                return '(' . $args[0] . '[0] === "\'" || (' . $args[0] . '[1] === "\'" && '
+                     . '(' . $args[0] . '[0] === \'b\' || ' . $args[0] . '[0] === \'B\')) '
+                     . '? Scalar\String_::KIND_SINGLE_QUOTED : Scalar\String_::KIND_DOUBLE_QUOTED)';
+            }
+
+            if ('prependLeadingComments' == $name) {
+                assertArgs(1, $args, $name);
+
+                return '$attrs = $this->startAttributeStack[#1]; $stmts = ' . $args[0] . '; '
+                . 'if (!empty($attrs[\'comments\'])) {'
+                . '$stmts[0]->setAttribute(\'comments\', '
+                . 'array_merge($attrs[\'comments\'], $stmts[0]->getAttribute(\'comments\', []))); }';
             }
 
             return $matches[0];
@@ -197,6 +227,15 @@ function ensureDirExists($dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
     }
+}
+
+function execCmd($cmd) {
+    $output = trim(shell_exec("$cmd 2>&1"));
+    if ($output !== "") {
+        echo "> " . $cmd . "\n";
+        echo $output;
+    }
+    return $output;
 }
 
 //////////////////////////////

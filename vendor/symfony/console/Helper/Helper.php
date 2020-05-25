@@ -23,9 +23,7 @@ abstract class Helper implements HelperInterface
     protected $helperSet = null;
 
     /**
-     * Sets the helper set associated with this helper.
-     *
-     * @param HelperSet $helperSet A HelperSet instance
+     * {@inheritdoc}
      */
     public function setHelperSet(HelperSet $helperSet = null)
     {
@@ -33,9 +31,7 @@ abstract class Helper implements HelperInterface
     }
 
     /**
-     * Gets the helper set associated with this helper.
-     *
-     * @return HelperSet A HelperSet instance
+     * {@inheritdoc}
      */
     public function getHelperSet()
     {
@@ -45,47 +41,61 @@ abstract class Helper implements HelperInterface
     /**
      * Returns the length of a string, using mb_strwidth if it is available.
      *
-     * @param string $string The string to check its length
-     *
      * @return int The length of the string
      */
-    public static function strlen($string)
+    public static function strlen(?string $string)
     {
         if (false === $encoding = mb_detect_encoding($string, null, true)) {
-            return strlen($string);
+            return \strlen($string);
         }
 
         return mb_strwidth($string, $encoding);
     }
 
+    /**
+     * Returns the subset of a string, using mb_substr if it is available.
+     *
+     * @return string The string subset
+     */
+    public static function substr(string $string, int $from, int $length = null)
+    {
+        if (false === $encoding = mb_detect_encoding($string, null, true)) {
+            return substr($string, $from, $length);
+        }
+
+        return mb_substr($string, $from, $length, $encoding);
+    }
+
     public static function formatTime($secs)
     {
-        static $timeFormats = array(
-            array(0, '< 1 sec'),
-            array(2, '1 sec'),
-            array(59, 'secs', 1),
-            array(60, '1 min'),
-            array(3600, 'mins', 60),
-            array(5400, '1 hr'),
-            array(86400, 'hrs', 3600),
-            array(129600, '1 day'),
-            array(604800, 'days', 86400),
-        );
+        static $timeFormats = [
+            [0, '< 1 sec'],
+            [1, '1 sec'],
+            [2, 'secs', 1],
+            [60, '1 min'],
+            [120, 'mins', 60],
+            [3600, '1 hr'],
+            [7200, 'hrs', 3600],
+            [86400, '1 day'],
+            [172800, 'days', 86400],
+        ];
 
-        foreach ($timeFormats as $format) {
+        foreach ($timeFormats as $index => $format) {
             if ($secs >= $format[0]) {
-                continue;
-            }
+                if ((isset($timeFormats[$index + 1]) && $secs < $timeFormats[$index + 1][0])
+                    || $index == \count($timeFormats) - 1
+                ) {
+                    if (2 == \count($format)) {
+                        return $format[1];
+                    }
 
-            if (2 == count($format)) {
-                return $format[1];
+                    return floor($secs / $format[2]).' '.$format[1];
+                }
             }
-
-            return ceil($secs / $format[2]).' '.$format[1];
         }
     }
 
-    public static function formatMemory($memory)
+    public static function formatMemory(int $memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
             return sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
@@ -104,6 +114,11 @@ abstract class Helper implements HelperInterface
 
     public static function strlenWithoutDecoration(OutputFormatterInterface $formatter, $string)
     {
+        return self::strlen(self::removeDecoration($formatter, $string));
+    }
+
+    public static function removeDecoration(OutputFormatterInterface $formatter, $string)
+    {
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(false);
         // remove <...> formatting
@@ -112,6 +127,6 @@ abstract class Helper implements HelperInterface
         $string = preg_replace("/\033\[[^m]*m/", '', $string);
         $formatter->setDecorated($isDecorated);
 
-        return self::strlen($string);
+        return $string;
     }
 }
