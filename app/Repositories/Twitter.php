@@ -105,6 +105,7 @@ class Twitter
 
     function getCoordinates($city) 
     {
+        
         $url = 'http://api.openweathermap.org/data/2.5/find?q=$city';
         $getfield = '?q=' . $city;
 

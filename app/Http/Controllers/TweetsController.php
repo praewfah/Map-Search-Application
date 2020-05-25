@@ -19,10 +19,10 @@ class TweetsController extends Controller
             $city = "Bangkok";
         }
         
-        $twitter = new Twitter(config('app.twitter'));
+        $twitter = new Twitter(config('app.twitter')); // oauth
         $histories = $this->getHistory($city);
                 
-        if(!empty($histories)) { // not over 1 hour.
+        if($histories->count()) { // not over 1 hour.
             foreach ($histories as $row) {
                 $latitud = $row->latitude;
                 $longitude = $row->longitude;
@@ -52,7 +52,7 @@ class TweetsController extends Controller
     private function getHistory($city) {
         return History::select('tweets', 'latitude', 'longitude')
                 ->where([['city', '=', $city]])
-                ->whereRaw("(created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR))")
+                ->whereRaw("(created_at > (convert_tz(NOW(), '+00:00', '+07:00')) - INTERVAL 1 HOUR)") // time zone TH
                 ->get();
     }
     

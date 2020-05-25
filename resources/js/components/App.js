@@ -114,19 +114,25 @@ class App extends Component {
         return (
             <div className='container'>
               <div className='row justify-content-center'>
-                    
-                    <div id="banner"></div>
+                    <div className='col-sm-9'>
+                        <div className='row'>
+                            <div id="banner"></div>
 
-                    <div id="map-canvas"></div>
-                    
-                    <form onSubmit={this.handleSubmit} className="form-inline">
-                        <div className="form-group">
-                            <input type="text" className="form-control" id="city" placeholder="City" />
+                            <div id="map-canvas"></div>
+
+                            <div className='col-sm-12' style={{ padding: '10px', background: '#f8f8f8' }}>
+                                <form onSubmit={this.handleSubmit}>
+                                    <input type="text" className="form-control col-sm-6" id="city" placeholder="City" />
+                                    <button type="submit" className="btn btn-primary col-sm-3">SEARCH</button>
+                                    <button type="button" className="btn btn-default col-sm-3">HISTORY</button>
+                                </form>
+                            </div>
                         </div>
-                        
-                        <button type="submit" className="btn btn-default">SEARCH</button>
-                        <button className="btn btn-default">HISTORY</button>
-                    </form>
+                    </div>
+                    <div className='col-sm-2'>
+                        HisTORY
+                        HisTORY
+                    </div>
               </div>
             </div>
         );
