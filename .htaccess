@@ -20,4 +20,5 @@
 
     AddType 'text/css; charset=UTF-8' css
 
+    php_value memory_limit 1028M
 </IfModule>
