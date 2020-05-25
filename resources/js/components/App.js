@@ -1,19 +1,15 @@
-//import React, { Component } from 'react'
-//import ReactDOM from 'react-dom'
-//import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-//class App extends Component {
-class App extends React.Component {
+import Footer from './Footer';
+
+class App extends Component {
     constructor() {
         super();
-        this.state = {
-            data: [],
-            coor: [],
-            beaches: []
-        };
+        this.state = {data: [], coor: [], beaches: []};
         
         this.infowindow = null;
-        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -30,15 +26,13 @@ class App extends React.Component {
                 coor: response.data.coor,
                 beaches: response.data.beaches
             });
-            
             google.maps.event.addDomListener(window, 'load', this.initialize());
         });
-        
     }
 
     initialize() {
         const mapOptions = {
-            zoom: 14,
+            zoom: 13,
             center: new google.maps.LatLng(this.state.coor.latitud, this.state.coor.longitud)
         };
         
@@ -114,7 +108,7 @@ class App extends React.Component {
     render() {
         return (
             <div className='container'>
-              <div className='row justify-content-center'>
+                <div className='row justify-content-center'>
                     <div className='col-sm-9'>
                         <div className='row'>
                             <div id="banner"></div>
@@ -130,11 +124,8 @@ class App extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className='col-sm-2'>
-                        HisTORY
-                        HisTORY
-                    </div>
-              </div>
+                </div>
+                <Footer />
             </div>
         );
     }
