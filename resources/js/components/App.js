@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+//import React, { Component } from 'react'
+//import ReactDOM from 'react-dom'
+//import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-class App extends Component {
+//class App extends Component {
+class App extends React.Component {
     constructor() {
         super();
         this.state = {

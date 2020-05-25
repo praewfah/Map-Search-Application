@@ -3,7 +3,7 @@
     "engines": {
         "node": ">= 6.9.4",
         "npm": ">= 4.4.0"
-    }
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
