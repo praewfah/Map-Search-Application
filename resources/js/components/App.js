@@ -33,7 +33,6 @@ class App extends Component {
             google.maps.event.addDomListener(window, 'load', this.initialize());
         });
         
-        
     }
 
     initialize() {
