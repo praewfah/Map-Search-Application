@@ -3,4 +3,6 @@
 Use App\Map;
 use Illuminate\Http\Request;
 
-Route::view('/{path?}', 'app');
+Route::view('/', 'app');
+Route::view('/aumaporn/cv', 'cv');
+Route::view('/document', 'document');

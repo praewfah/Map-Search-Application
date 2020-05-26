@@ -6,7 +6,9 @@ const Footer = () => (
         <hr/>
         <div className="justify-content-center">
             <div className="text-center small">
-                Designed and built by Aumaporn Tangmanosodsikul | 
+                <a href='/document' target="_blank"> Documents </a> | 
+                Designed and built by 
+                <a href='/aumaporn/cv' target="_blank"> Aumaporn Tangmanosodsikul </a> | 
                 GIT URL : 
                 <a href='https://github.com/praewfah/Map-Search-Application.git' target="_blank">
                     https://github.com/praewfah/Map-Search-Application.git

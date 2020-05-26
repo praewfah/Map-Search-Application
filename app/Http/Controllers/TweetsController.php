@@ -87,7 +87,7 @@ class TweetsController extends Controller
     
     private function addHistory($coor, $content) 
     {
-        if (Histories::create([ //store
+        if (Histories::create([ 
             'city' => $this->city,
             'created_at' => date('Y-m-d H:i:s'),
             'latitude' => isset($coor["latitud"]) ? $coor["latitud"] : 0,
@@ -101,7 +101,6 @@ class TweetsController extends Controller
     
     private function deleteHistory() 
     {
-        //echo $this->city ; die();
         if (Histories::where('city', $this->city)->delete())
             return Tweets::where('city', $this->city)->delete(); 
         

@@ -156,14 +156,14 @@ class App extends Component {
                             <div id="banner" className='col-sm-12 text-center'></div>
                             <div id="map-canvas">{map_loading ? <i className="fa fa-spinner fa-spin fa-4x"></i> : ''}</div>
                             <div className='col-sm-12' style={{ padding: '10px', background: '#f8f8f8' }}>
-                            <div id="infowindow-content"style={{ display: 'none' }} >
-                                <img src="" width="16" height="16" id="place-icon"/>
-                                <span id="place-name" className="title"></span>
-                                <span id="place-address"></span>
-                            </div>
-                            <input id="pac-input" type="text" className="form-control col-sm-6" placeholder="Enter a location" onChange={this.handleChange} />
-                            <button type="submit" className="btn btn-primary col-sm-3" onClick={this.handleSubmit}>SEARCH</button>
-                            <button type="button" className="btn btn-default col-sm-3" onClick={this.handleOnClick}>HISTORY</button>
+                                <div id="infowindow-content"style={{ display: 'none' }} >
+                                    <img src="" width="16" height="16" id="place-icon"/>
+                                    <span id="place-name" className="title"></span>
+                                    <span id="place-address"></span>
+                                </div>
+                                <input id="pac-input" type="text" className="form-control col-sm-6" placeholder="Enter a location" onChange={this.handleChange} />
+                                <button type="submit" className="btn btn-primary col-sm-3" onClick={this.handleSubmit}>SEARCH</button>
+                                <button type="button" className="btn btn-default col-sm-3" onClick={this.handleOnClick}>HISTORY</button>
                             </div>
                         </div>
                     </div>
