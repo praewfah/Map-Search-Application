@@ -17,7 +17,7 @@
     "heroku-run-build-script": true,
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
         "dotenv": "^8.2.0",
