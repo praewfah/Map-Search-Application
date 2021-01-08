@@ -14,7 +14,7 @@ class App extends Component {
         this.handleReload = this.handleReload.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() { // call with render() // componentWillMount => call before render()
         const link= "https://maps.googleapis.com/maps/api/js?key=AIzaSyDjoHelMpE5RdVWUPQyDNknQpyxRQGBQpg&libraries=places&v=3.exp";
         const sc = document.createElement("script");
         sc.setAttribute("src", link);
