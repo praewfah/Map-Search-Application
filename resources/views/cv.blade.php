@@ -87,6 +87,24 @@
                                         <div class="p-3 mb-2 bg-light text-dark small">
                                             <div class="row">
                                                 <div class="col-md-6 text-left">
+                                                    Senior PHP Developer at UnixDev Co.,Ltd. 
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    July 2020 - Present
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <ul class="small">
+                                                <li>Implementing DEEP (Digital Education Excellence Platform) 
+                                                    project using PHP Laravel, MySql, Vue.js</li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- unixdev -->
+                                        <div class="p-3 mb-2 bg-light text-dark small">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left">
                                                     Senior Developer at Common-services Co.,Ltd 
                                                 </div>
                                                 <div class="col-md-6 text-right">
@@ -160,8 +178,8 @@
                                         </h6>
                                         <hr/>
                                         <div class="small">
-                                            <b>PHP, XML, SOAP, REST, REACT(basic), NodeJS(basic), 
-                                                Swift(basic), CSS, Bootstrap, Angular, HTML, JavaScript, jQuery
+                                            <b>PHP (Framework: Laravel, CodeIgniter), SOAP, RESTful API, Vuejs, Vuex, REACT(basic), CSS, 
+                                            Bootstrap, Angular, HTML, JavaScript, jQuery, NodeJS(basic), Swift(basic)
                                             </b>
                                         </div>
                                         <div class="small"><b>Server:</b> Linux, Apache </div>
