@@ -84,13 +84,36 @@
                                             Experience
                                         </h6>
                                         <hr/>
+                                        
+                                        <div class="p-3 mb-2 bg-light text-dark small">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left">
+                                                    Senior Back-end Engineer at bluePi(Thailand) Co.,Ltd. 
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    April 2021 - Present
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <ul class="small">
+                                                <li>Engineered modern applications with Python(FastAPI), Docker, and PostgreSQL</li>
+                                                <li>Built innovative microservices and Web Services (incl. REST)</li>
+                                                <li>Efficiently deployed and integrated software engineered by team and 
+                                                updated integration/deployment scripts to improve continuous integration practices</li>
+                                                <li>Liaised with Product Managers to identify minimum viable product requirements 
+                                                and clearly defined feature sets into well-scoped user stories for individual team members</li>
+                                                <li>Agile methodology</li>
+                                            </ul>
+                                        </div><!-- bluepi -->
+                                        
                                         <div class="p-3 mb-2 bg-light text-dark small">
                                             <div class="row">
                                                 <div class="col-md-6 text-left">
                                                     Senior PHP Developer at UnixDev Co.,Ltd. 
                                                 </div>
                                                 <div class="col-md-6 text-right">
-                                                    July 2020 - Present
+                                                    July 2020 - March 2021
                                                 </div>
                                             </div>
                                         </div>
@@ -99,9 +122,8 @@
                                                 <li>Implementing DEEP (Digital Education Excellence Platform) 
                                                     project using PHP Laravel, MySql, Vue.js</li>
                                             </ul>
-                                        </div>
-
-                                        <!-- unixdev -->
+                                        </div><!-- unixdev -->
+                                        
                                         <div class="p-3 mb-2 bg-light text-dark small">
                                             <div class="row">
                                                 <div class="col-md-6 text-left">
