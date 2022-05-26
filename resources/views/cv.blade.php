@@ -87,10 +87,10 @@
                                         
                                         <div class="p-3 mb-2 bg-light text-dark small">
                                             <div class="row">
-                                                <div class="col-md-6 text-left">
+                                                <div class="col-md-7 text-left">
                                                     Senior Back-end Engineer at bluePi(Thailand) Co.,Ltd. 
                                                 </div>
-                                                <div class="col-md-6 text-right">
+                                                <div class="col-md-5 text-right">
                                                     April 2021 - Present
                                                 </div>
                                             </div>
