@@ -33,7 +33,7 @@
                             <div class="col-md-3">
                                 <div class="row justify-content-md-center badge-dark">
                                     <div class="col-md-8 pt-3">
-                                        <img src="{{ url('/img/profile.png') }}" class="card-img rounded-circle" alt="Praew" width="100px" >
+                                        <img src="{{ url('/img/profile2.png') }}" class="card-img rounded-circle" alt="Praew" width="100px" >
                                     </div>
                                     <div class="col-md-12 pt-3">
                                         <h6 class="text-center text-uppercase">Miss Aumaporn Tangmanosodsikul</h6>
@@ -46,7 +46,7 @@
                                     <ul class="list-unstyled small">
                                         <li><b>Birthday:</b> 13 May 1987</li>
                                         <li><b>Height:</b> 155 cm</li>
-                                        <li><b>Weight:</b> 60 kg</li>
+                                        <li><b>Weight:</b> 50 kg</li>
                                         <li><b>Nationality:</b> Thai</li>
                                         <li><b>Religion:</b> Buddhism</li>
                                         <li><b>Marital Status:</b> Single</li>
@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="row justify-content-md-left badge-light pt-4 pl-3" style="position: relative; bottom: 0px;">
                                     <address class="small text-muted">
-                                        359/187 A-Space Sukhumvit<br>
-                                        2 77 Building, Onnuch Road,<br>
+                                        2359/187 A-Space Sukhumvit<br>
+                                        77 Building, Onnuch Road,<br>
                                         Suanluang, Bangkok 10250<br><br>
                                         <abbr title="Phone">P:</abbr> 084-659-5073<br><br>
                                         <a href="mailto:preawfah@hotmail.com">preawfah@hotmail.com</a>
