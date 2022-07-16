@@ -33,7 +33,7 @@
                             <div class="col-md-3">
                                 <div class="row justify-content-md-center badge-dark">
                                     <div class="col-md-8 pt-3">
-                                        <img src="{{ url('/img/profile2.jpg') }}" class="card-img rounded-circle" alt="Praew" width="100px" >
+                                        <img src="{{ url('/img/profile2.png') }}" class="card-img rounded-circle" alt="Praew" width="100px" >
                                     </div>
                                     <div class="col-md-12 pt-3">
                                         <h6 class="text-center text-uppercase">Miss Aumaporn Tangmanosodsikul</h6>
