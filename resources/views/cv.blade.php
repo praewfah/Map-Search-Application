@@ -193,7 +193,7 @@
                                     </div>
                                 </div><!--Experience-->
 
-                                <div class="row mt-5 mb-25">
+                                <div class="row mt-5 pb-20">
                                     <div class="col-md-12">
                                         <h6 class="text-uppercase">
                                             SKILLS
