@@ -46,7 +46,7 @@
                                     <ul class="list-unstyled small">
                                         <li><b>Birthday:</b> 13 May 1987</li>
                                         <li><b>Height:</b> 155 cm</li>
-                                        <li><b>Weight:</b> 50 kg</li>
+                                        <li><b>Weight:</b> 48 kg</li>
                                         <li><b>Nationality:</b> Thai</li>
                                         <li><b>Religion:</b> Buddhism</li>
                                         <li><b>Marital Status:</b> Single</li>
