@@ -200,15 +200,15 @@
                                         </h6>
                                         <hr/>
                                         <div class="small">
-                                            <b>Python (FastAPI), PHP (Framework: Laravel, CodeIgniter), SOAP API, REST API, RESTful, Vuejs, Vuex, REACT(basic), CSS, 
+                                            <b>Python (FastAPI), PHP (Framework: Laravel, CodeIgniter), SOAP API, REST API, RESTful, Vuejs, Vuex, REACT(basic), Next js, CSS, 
                                             Bootstrap, Angular, HTML, JavaScript, jQuery, NodeJS(basic), Swift(basic)
                                             </b>
                                         </div>
                                         <div class="small"><b>Server:</b> Linux, Apache, Docker </div>
                                         <div class="small"><b>Database:</b> MySQL, SQLite, PostgreSQL </div>
-                                        <div class="small"><b>Web Service:</b> Amazon Web Service (AWS),  </div>
+                                        <div class="small"><b>Web Service:</b> Amazon Web Service (AWS) </div>
                                         <div class="small"><b>Other:</b> Git, npm, Composer, SEO Friendly, Drupal, 
-                                            Wordpress, Prestashop, Shopify, Google Shopping, Jira, Basecamp, Netbean, Xcode</div>
+                                            Wordpress, Prestashop, Shopify, Google Shopping, Jira, Basecamp, Netbean, Xcode, VS Code</div>
                                     </div>
                                 </div><!--Skill-->
 
